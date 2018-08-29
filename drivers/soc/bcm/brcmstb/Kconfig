@@ -1,0 +1,26 @@
+config BRCMSTB_CMA
+	bool "Broadcom STB CMA"
+	depends on SOC_BRCMSTB && ARCH_BRCMSTB && ARM && CMA && BRCMSTB_MEMORY_API
+	help
+	  This driver provides the ioctls for manipulating with the reserved
+	  areas used by Broadcom middleware, as well as the functions for the
+	  kernel interface.  It also provides register and reserve functions
+	  for setting up the CMA regions it uses at early boot.
+
+	  If you are planning to use Broadcom middleware, choose Y here.
+
+config BRCMSTB_MEMORY_API
+	bool "Enable BRCMSTB memory API"
+	depends on SOC_BRCMSTB && HAVE_MEMBLOCK && ARCH_BRCMSTB
+	select LIBFDT
+	help
+	  This provides information on how system memory is arranged so that
+	  Broadcom STB middleware can determine how to set up its memory heaps.
+
+	  If you are planning to use Broadcom middleware, choose Y here.
+
+config BRCMSTB_PM
+	bool "Support suspend/resume for STB platforms"
+	default y
+	depends on PM
+	depends on SOC_BRCMSTB && ARM && ARCH_BRCMSTB
